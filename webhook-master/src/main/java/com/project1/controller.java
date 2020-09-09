@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.http.MediaType;
+
 
 
 @RestController
@@ -33,6 +35,21 @@ public class controller {
 	}
 	
 	
+	
+	@PostMapping(value="/webhook" )
+    public @ResponseBody String getMyPrometheusAlert(@RequestBody String alert) {
+		//alert=json 
+    System.out.println("Prometheus WebHook collected JSON: " + alert);
+		//prometheusAlerts(Map<String, Object> json)
+		return prometheusAlerts(alert);
+    }
+	
+	
+	
+	
+/*	
+	ACTUAL IMPLEMENTATION FOR PROMETHEUS
+	
 	//@PostMapping(value="/webhook", consumes = {"application/json"},produces = {"application/json"})
 	@PostMapping(value="/webhook")
     public @ResponseBody Map<String, Object> getMyPrometheusAlert(@RequestBody Map<String, Object> alert) {
@@ -41,7 +58,14 @@ public class controller {
 		//prometheusAlerts(Map<String, Object> json)
 		return prometheusAlerts(alert);
     }
-    
+    */
+	
+	
+	
+/*	
+	ACTUAL CODE FOR PRIVATE CLOUD
+	
+	
 	public Map<String, Object> prometheusAlerts(Map<String, Object> alert) {
 		// TODO Auto-generated method stub
 		
@@ -55,9 +79,9 @@ public class controller {
 		return alert;
 	}
 	
-
+*/
   
- /*   @PostMapping("/webhook") 
+/*  @PostMapping("/webhook") 
   
     public String post(@RequestBody  Map<String, Object> alert) 
     { 
@@ -67,6 +91,20 @@ public class controller {
         return "Published successfully"; 
     } 
 */	
+
+	public String prometheusAlerts(String alert) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("\n Prometheus WebHook collected alert: " + alert);
+		
+		kafkaTemplate.send(TOPIC, alert);
+		
+		System.out.println("\n alert send" + alert);
+		
+		
+		return alert;
+	}
+
 
 }
 
