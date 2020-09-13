@@ -1,4 +1,4 @@
-package com.project1;
+package com.project1.Interfaces;
 
 import java.util.Map;
 

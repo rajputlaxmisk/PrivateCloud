@@ -1,8 +1,11 @@
-package com.project1;
+package com.project1.Services;
 
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.project1.Interfaces.EventsManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 
